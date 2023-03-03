@@ -1,0 +1,28 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Video Page
+{% endblock %}
+
+{% block content %}
+    <video width="800" controls id="video">
+        <source src="{% static 'emotions_video/Video2.mp4' %}" type = "video/mp4">
+    </video>
+
+    <p>
+        Hazle click al video para iniciarlo.
+        El botón para pasar a la siguiente página aparecerá luego de que culmine el video.
+    </p>
+
+    <script>
+        const video = document.querySelector('video');
+        video.addEventListener('ended', (event) => {
+            const button = document.getElementById("Next");
+            button.style.visibility = "visible";
+        });
+    </script>
+
+    <button class="otree-btn-next btn btn-primary" id="Next" style="visibility: hidden;">Next</button>
+
+{% endblock %}
