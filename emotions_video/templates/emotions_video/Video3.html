@@ -30,19 +30,18 @@
     </p>
 
     <script>
-        const video = document.querySelector('video');
-        video.addEventListener('ended', (event) => {
-            const button = document.getElementById("Next");
-            button.style.visibility = "visible";
-        });
+        document.addEventListener('DOMContentLoaded', () => {
+        const myButton = document.getElementById('myButton');
+        
         setTimeout(() => {
-            el.style.visibility = 'visible';
+            myButton.style.display = 'inline-block';
         }, 847000); // milisegundos - 14:07 minutos
+        }); 
     </script>
-
-    <div id="box">
-        <button class="otree-btn-next btn btn-primary" >Next</button>
+    <div id="myButton" style="display: none;">
+        {% next_button %}
     </div>
+
 
     <br><br>
 

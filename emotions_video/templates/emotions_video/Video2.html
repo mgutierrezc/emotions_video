@@ -29,20 +29,16 @@
     </p>
 
     <script>
-        const video = document.querySelector('video');
-        video.addEventListener('ended', (event) => {
-            const button = document.getElementById("Next");
-            button.style.visibility = "visible";
-        });
-        const el = document.getElementById('box');
+    document.addEventListener('DOMContentLoaded', () => {
+    const myButton = document.getElementById('myButton');
 
-        setTimeout(() => {
-            el.style.visibility = 'visible';
-        }, 161000); // milisegundos - 2:41 minutos
+    setTimeout(() => {
+        myButton.style.display = 'inline-block';
+    }, 161000); //milisegundos - 2:41 minutos
+    }); 
     </script>
-    
-    <div id="box">
-        <button class="otree-btn-next btn btn-primary" >Next</button>
+    <div id="myButton" style="display: none;">
+        {% next_button %}
     </div>
 
     <br><br>
