@@ -31,5 +31,11 @@ class EmoQuestPage2(Page):
 class DoneQuestionnaire(Page):
     pass
 
-page_sequence = [EmoQuestPage1, EmoQuestPage2, DoneQuestionnaire]
+class Final_E2lab(Page):
+    def vars_for_template(self):
+        return dict(participant_id=self.participant.label)
+
+
+
+page_sequence = [EmoQuestPage1, EmoQuestPage2, DoneQuestionnaire, Final_E2lab]
 
