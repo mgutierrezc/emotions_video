@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
         name='emotions_video',
         display_name="Emotions video",
         num_demo_participants=1,
-        app_sequence=['panas_x_initial','emotions_video','panas_x_final']
+        app_sequence=['emotions_video_instructions','panas_x_initial','emotions_video','panas_x_final']
      ),
 ]
 
