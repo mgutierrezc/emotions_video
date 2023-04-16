@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Video Page
+    Video 
 {% endblock %}
 
 {% block content %}
@@ -11,8 +11,18 @@
         <source src="{% static 'emotions_video/Video2.mp4' %}" type = "video/mp4">
     </video>
 -->
+<style>
+    iframe {
+  width: 600px;
+    }
 
-    <iframe src="https://www.youtube.com/embed/JtAzMFcUQ90?autoplay=1&modestbranding=1&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&color=white&controls=0&disablekb=1" width="800" height="600" title="A YouTube video" frameborder="0"></iframe>
+    #box {
+        visibility: hidden;
+      }
+    
+</style>
+
+    <iframe src="https://www.youtube.com/embed/JtAzMFcUQ90?autoplay=1&modestbranding=1&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&color=white&controls=0&disablekb=1" width=900px height=900px title="A YouTube video" frameborder="0"></iframe>
     <p>
         Hazle click al video para iniciarlo.
         El botón para pasar a la siguiente página aparecerá luego de que culmine el video.
@@ -24,9 +34,18 @@
             const button = document.getElementById("Next");
             button.style.visibility = "visible";
         });
-    </script>
+        const el = document.getElementById('box');
 
-    <button class="otree-btn-next btn btn-primary" id="Next" style="visibility: hidden;">Next</button>
+        setTimeout(() => {
+            el.style.visibility = 'visible';
+        }, 161000); // milisegundos - 2:41 minutos
+    </script>
+    
+    <div id="box">
+        <button class="otree-btn-next btn btn-primary" >Next</button>
+    </div>
+
+    <br><br>
 
     <b>Contáctenos:</b>
     <br>

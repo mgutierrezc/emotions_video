@@ -12,8 +12,17 @@
     </video>
 -->
 
+<style>
+    iframe {
+  width: 600px;
+    }
 
-<iframe src="https://www.youtube.com/embed/MKWWhf8RAV8?autoplay=1&modestbranding=1&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&color=white&controls=0&disablekb=1" width=800px height=600px title="Tahiti Surf with Anthony Walsh and Matahi Drollet" frameborder="0"></iframe>
+    #box {
+        visibility: hidden;
+      }
+    
+</style>
+<iframe src="https://www.youtube.com/embed/MKWWhf8RAV8?autoplay=1&modestbranding=1&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&color=white&controls=0&disablekb=1" width=900px height=900px title="Tahiti Surf with Anthony Walsh and Matahi Drollet" frameborder="0"></iframe>
     <p>
         Hazle click al video para iniciarlo.
         El botón para pasar a la siguiente página aparecerá luego de que culmine el video.
@@ -26,9 +35,20 @@
             button.style.visibility = "visible";
         });
         $(".media-youtube-player").contents().find(".ytp-pause-overlay").remove();
+
+        const el = document.getElementById('box');
+
+        setTimeout(() => {
+            el.style.visibility = 'visible';
+        }, 215000); // milisegundos - 3:35 minutos
     </script>
 
-    <button class="otree-btn-next btn btn-primary" id="Next" style="visibility: hidden;">Next</button>
+    <div id="box">
+        <button class="otree-btn-next btn btn-primary" >Next</button>
+    </div>
+
+
+    <br><br>
 
     <b>Contáctenos:</b>
     <br>

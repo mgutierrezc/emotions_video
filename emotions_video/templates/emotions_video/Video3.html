@@ -2,7 +2,7 @@
 {% load otree static %}
 
 {% block title %}
-    Video Page
+    Video 
 {% endblock %}
 
 {% block content %}
@@ -11,6 +11,16 @@
         <source src="{% static 'emotions_video/Video3.mp4' %}" type = "video/mp4">
     </video>
 -->
+<style>
+    iframe {
+  width: 600px;
+    }
+
+    #box {
+        visibility: hidden;
+      }
+    
+</style>
 
 <iframe src="https://www.youtube.com/embed/SmhuzTzUKQY?autoplay=1&modestbranding=1&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&color=white&controls=0&disablekb=1" width=500px height=500px title="A YouTube video" frameborder="0"></iframe>
 
@@ -25,9 +35,16 @@
             const button = document.getElementById("Next");
             button.style.visibility = "visible";
         });
+        setTimeout(() => {
+            el.style.visibility = 'visible';
+        }, 847000); // milisegundos - 14:07 minutos
     </script>
 
-    <button class="otree-btn-next btn btn-primary" id="Next" style="visibility: hidden;">Next</button>
+    <div id="box">
+        <button class="otree-btn-next btn btn-primary" >Next</button>
+    </div>
+
+    <br><br>
 
     <b>Contáctenos:</b>
     <br>
