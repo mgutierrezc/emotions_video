@@ -20,6 +20,7 @@ class Constants(BaseConstants):
     name_in_url = 'panas_x_initial'
     players_per_group = None
     num_rounds = 1
+    Contactenos = 'panas_x_initial/Contactenos.html'
     panasx_list=[
         'Animado/a',
         'Repugnado/a',

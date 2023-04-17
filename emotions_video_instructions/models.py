@@ -20,6 +20,7 @@ class Constants(BaseConstants):
     name_in_url = 'emotions_video_instructions'
     players_per_group = None
     num_rounds = 1
+    Contactenos = 'emotions_video_instructions/Contactenos.html'
 
 class Subsession(BaseSubsession):
     pass    

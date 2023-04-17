@@ -25,6 +25,7 @@ class Constants(BaseConstants):
     first_ROLE = 'A'
     second_ROLE = 'B'
     third_ROLE = 'C'
+    Contactenos = 'emotions_video/Contactenos.html'
 
 
 class Subsession(BaseSubsession):

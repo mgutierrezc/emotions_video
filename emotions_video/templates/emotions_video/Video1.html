@@ -29,15 +29,19 @@
         height: 100%;
     }
 </style>
+<p>
+    Por favor, mira el video de principio a fin y no cambies de video, ventana o pestaña en ningún momento.
+</p>
+<p>
+    Este es un video 360, y puedes usar el mouse para ver diferentes ángulos y elementos del video.
+</p>
+<p>
+    Hazle click al video para iniciarlo. El botón para pasar a la siguiente página aparecerá cuando el video termine.
+</p>
 
 <div class="video-container">
-
 <iframe src="https://www.youtube.com/embed/MKWWhf8RAV8?autoplay=1&modestbranding=1&rel=0&cc_load_policy=1&iv_load_policy=3&fs=0&color=white&controls=0&disablekb=1" width=100% height=800px title="Tahiti Surf with Anthony Walsh and Matahi Drollet" frameborder="0"></iframe>
 </div>   
-<p>
-        Hazle click al video para iniciarlo.
-        El botón para pasar a la siguiente página aparecerá luego de que culmine el video.
-    </p>
 
     <script>
 
@@ -53,15 +57,9 @@
         {% next_button %}
     </div>
 
-    <br><br>
 
-    <b>Contáctenos:</b>
-    <br>
-    <img height="2%" width="2%" src="{% static 'whatsapp.png'%}"/> <a href="https://wa.me/0051985730063" target="_blank">+51 985730063</a>
-    <br>
-    <img height="2%" width="2%" src="{% static 'gmail.png'%}"/> <a href="https://mail.google.com/mail/?view=cm&fs=1&to=e2lab@up.edu.pe" target="_blank">e2lab@up.edu.pe</a> 
-    <br>
-    <img height=10% width=20% src="{% static 'logoup.png'%}"/>
+
+    {% include Constants.Contactenos %}
     
 
 {% endblock %}
