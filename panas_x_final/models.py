@@ -110,3 +110,17 @@ class Player(BasePlayer):
 
     del var_name
 
+    Q1 = models.StringField(
+        choices = [
+        'Flores en un jardin',
+        'Personas practicando un deporte extremo en un cañón',
+        'Buceando y surfeando con las tortugas',
+        'Personas caminando en una avenida',
+        'Un salón de clase lleno'
+        ],
+        label = '1. ¿Cuál es el tema principal del video? (se califica)'
+    )
+    Q2 = models.LongStringField(
+        label = '2. Describe brevemente algún evento que sucede durante el video (no se califica)'
+    )
+
