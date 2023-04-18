@@ -20,7 +20,7 @@ Your app description
 
 class Constants(BaseConstants):
     name_in_url = 'emotions_video'
-    players_per_group = None
+    players_per_group = 3
     num_rounds = 1
     first_ROLE = 'A'
     second_ROLE = 'B'
