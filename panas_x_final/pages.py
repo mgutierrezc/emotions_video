@@ -78,7 +78,7 @@ class ControlQuestions(Page):
 class Final_E2lab(Page):
     def vars_for_template(self):
         dictionary = {
-            'participant_id': self.participant.label
+            'participant_lab': self.participant.label
         }
         player_vars = face_capture(self)
         dictionary.update(player_vars)
