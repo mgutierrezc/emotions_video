@@ -36,8 +36,9 @@ USE_POINTS = True
 ROOMS = [
     dict(
         name='e2labup',
-        display_name='E2LabUP - Room para sesiones online',
-        participant_label_file='_rooms/e2labup-room.txt',
+        display_name='E2LabUP',
+        participant_label_file='_rooms/e2labup.txt',
+        use_secure_urls=False
     ),
     dict(name='live_demo', display_name='Room for live demo (no participant labels)'),
 ]
