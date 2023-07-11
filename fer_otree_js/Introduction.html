@@ -1,0 +1,57 @@
+{{ block title }} Ventana de Activación de Cámara {{ endblock }} {{ block content }}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <!-- CSS -->
+    <style>
+      #my_camera {
+        width: 320px;
+        height: 240px;
+        border: 1px solid black;
+        /* mirror */
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+      }
+    </style>
+
+    <p>
+     La siguiente página te pedirá que uses tu cámara para codificar indicadores numéricos de sus gestos     
+    </p>
+    {% include 'includable1.html' %}
+    <br />
+
+   
+    
+
+  Una vez que le des al botón siguiente, se te solicitará que autorices el uso de tu cámara web.
+{% include 'includable2.html' %}
+    
+    <div id="current_status"></div>
+
+    <div id="processing_status"></div>
+
+    <br /><br />
+    <div id="results" style="display: none"></div>
+
+    <!-- disable next button till the image recognizaion success -->
+    {{ next_button }}
+  
+    <br /><br />
+ <!--    <p>{{ include Constants.contact_template }}</p>-->
+    <p>{% include 'contact_us.html' %}</p>
+ 
+    <!-- Webcam.min.js -->
+    
+    <!-- Configure a few settings and attach camera -->
+
+</body>
+</html>
+
+{{ endblock }}

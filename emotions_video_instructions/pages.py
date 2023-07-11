@@ -11,5 +11,5 @@ class InstructionsFer(Page):
 class Instructions(Page):
     pass
 
-page_sequence = [E2LabUP_initial, InstructionsFer, Instructions]
+page_sequence = [E2LabUP_initial, Instructions]
 

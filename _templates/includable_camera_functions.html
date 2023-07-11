@@ -1,0 +1,253 @@
+<!-- for webcam img -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<!-- for webcam -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
+
+
+
+<!-- A button for taking snaps -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+
+<style>
+    #my_camera {
+      width: 320px;
+      height: 240px;
+      border: 1px solid black;
+      /* mirror */
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+</style>
+
+<div style="display:none">
+    <h4 >Cámara:</h4>
+    <br />
+        <div id="my_camera"></div>
+        <br />
+        <!--    <button class="button" type="button" id = "take_snap_button">Iniciar Cámara</button> -->
+        <div id="current_status"></div>
+        <div id="processing_status"></div>
+        <br /><br />
+        <div id="results" style="display: none"></div>
+        <!-- disable next button till the image recognizaion success -->
+  
+        <!-- <canvas id="canvas"></canvas>-->
+        <br /><br />
+    
+  </div>
+<!-- Webcam.min.js -->
+<!-- Este elemento div muestra un icono de cámara y se usa para indicar que se están tomando fotos en la página web. El estilo "display: none;" se usa para ocultar el elemento por defecto. -->
+<div class="taking_snaps_show" style="display: none;"><i class="fas fa-camera"></i> Taking snaps  </div>
+
+<!-- Code to handle taking the snapshot and displaying it locally -->
+<script language="JavaScript">
+    var banderaGlobal = 1;
+    try{
+        var bandera = false;
+        document.addEventListener("DOMContentLoaded", function() {
+            bandera = true
+            startCamera();
+        });
+    }catch{
+        console.log("error al iniciar la camara")
+    }
+  function startCamera() {
+        try
+        {
+            Webcam.set({
+                width: parseInt("{{ img_width }}"),
+                height: parseInt("{{ img_height }}"),
+                image_format: "jpeg",
+                jpeg_quality: parseInt("{{ img_quality }}"),
+            });
+            Webcam.attach("#my_camera");
+        }catch{
+            console.log("error al iniciar la camara")
+        }
+    }
+</script>
+
+<script language="JavaScript">
+
+     // END Make page ready for experiment start some initial settings
+
+    function download(text, filename) {
+        var blob = new Blob([text], { type: "text/plain" });
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+    }
+
+    function enableNextButton() 
+    {
+        $(".otree-btn-next").prop("disabled", false);
+        //$("#current_status").html("<b>All images processed!</b> ");
+    }
+    function taking_snaps_show() {
+        var takingSnaps = document.querySelector('.taking_snaps_show');
+        takingSnaps.style.display = 'block';
+        }
+    function take_snapshot(image_name_prefix, image_name_postfix,wait_time) {
+        try
+        {
+            var img = "";
+            // take snapshot and get image data
+            Webcam.snap(function (data_uri) {
+            // display results in page
+            img = data_uri;
+            });
+            let img_name = image_name_prefix + "_" + image_name_postfix;
+            return { img, img_name };
+        }catch{
+            console.log("error al tomar foto")
+        }
+        
+    }
+
+    // function to process sample image in the page
+    async function sendValue(data) {
+        try {
+        let returnResponse = {
+                success: false,
+                err: "",
+        };
+        let res = await fetch("{{processor_endpoint_sample}}", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                "X-access-token": "{{ api_key }}",
+                },
+                body: JSON.stringify({
+                ...data,
+                player_id: "{{player.id}}",
+                player_group_id: "{{group.id}}",
+                participate_label: "{{participant.label}}",
+                participant_code: "{{participant.code}}",
+                session_code: "{{session.code}}",
+                }),
+        });
+        console.log(res);
+        if (res.status == 200) {
+                returnResponse.success = true;
+                return returnResponse;
+        }
+
+        returnResponse.err = await res.text();
+        return returnResponse;
+        } catch (error) {
+        returnResponse.err = error;
+        return returnResponse;
+        }
+    }
+
+    // function to process all the images in the page
+    function processAllImages(data) {
+        console.log("DATA", data);
+        fetch("{{processor_endpoint_all}}", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-access-token": "{{ api_key }}",
+        },
+        body: JSON.stringify({
+            ...data,
+            player_id: "{{player.id}}",
+            player_group_id: "{{group.id}}",
+            participate_label: "{{participant.label}}",
+            participant_code: "{{participant.code}}",
+            session_code: "{{session.code}}",
+        }),
+        }).then((res) => {
+        console.log(res.data);
+        });
+    }
+
+    function _clearInterval(interval) {
+        clearInterval(interval);
+        enableNextButton();
+    }
+    window.addEventListener('beforeunload', function(event) {
+        // Se ejecuta justo antes de la recarga o el cambio de página
+        // Puedes realizar acciones aquí, como mostrar un mensaje de confirmación
+        banderaGlobal = 0;
+        //event.returnValue = ''; // Necesario para que funcione en algunos navegadores
+    });
+    window.addEventListener('unload', function(event) {
+                            banderaGlobal = 0;
+                        });
+
+    function init_take_snaps(){
+            enableNextButton() 
+        //$(".button").click(function () {
+            taking_snaps_show();
+            try {
+                document.getElementById("take_snap_button").style.display = "none";
+            } catch (e) {
+                console.log("El elemento take_snap_button no se encontró.");
+            }
+
+            let image_name_prefix = "{{ image_name_prefix }}";
+            let image_name_postfix = 1;
+            let images = [];
+
+            // NEW CODE
+            // Parse variables input in dashboaord
+            let snaps_interval_time_in_sec = parseFloat("{{ snaps_interval_time_in_sec }}".replace(",", "."));
+            let experiment_duration_in_sec = parseFloat("{{ experiment_duration_in_sec }}");
+            console.log( "{{ snaps_interval_time_in_sec }}" + " - " + parseFloat(snaps_interval_time_in_sec) + " - " + experiment_duration_in_sec);
+            let sample_image_frequency = parseFloat("{{ sample_image_frequency }}");
+            let delay = snaps_interval_time_in_sec*1000;
+            let end_time = Date.now() + experiment_duration_in_sec * 1000;
+
+            
+            
+                let interval = setInterval(async function () {
+                    try 
+                    {
+                        let now = Date.now();
+                        
+                        if (banderaGlobal == 0) {
+                            return; // Si la bandera es falsa, no ejecutar la lógica asincrónica
+                        }
+                        let { img, img_name } = await take_snapshot(image_name_prefix, image_name_postfix,snaps_interval_time_in_sec);
+                        $("#current_status").html(`<b>Processing images... ${img_name} </b>`);
+                        img_time = Date.now();
+                        let { success, err = "" } = await sendValue({ img, img_name, img_time });
+                        if (success) {
+                        $("#processing_status").html(`<b>Image ${img_name} processed successfully!</b>`);
+                        } else if (!success && err) {
+                        $("#processing_status").html(`<b>${err}</b>`);
+                        clearInterval(interval);
+                        } else {
+                        $("#processing_status").html(`<b>Image processing failed!, Stopping the Experiment. Please Click Next</b>`);
+                        console.info("Stopping the experiment.");
+                        clearInterval(interval);
+                        }
+                        // store in image array
+                        images.push({ img, img_name, img_time });
+                        // clear the interval if the experiment duration is over
+                        if (now > end_time) {
+                        console.log("All images captured, clearing interval.");
+                        console.log("Sending all the images to server");
+                        clearInterval(interval);
+                        // processAllImages({
+                        //   images,
+                        // });
+                        return;
+                        }
+                        image_name_postfix++;
+                    } catch (error) {
+                        // Manejar el error según sea necesario
+                        console.error("Se produjo un error al tomar fotos:", error);
+                    }
+                }, delay);
+                
+    //});
+        }
+</script>

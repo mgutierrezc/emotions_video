@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
         name='emotions_video',
         display_name="Emotions video",
         num_demo_participants=1,
-        app_sequence=['emotions_video_instructions','panas_x_initial','emotions_video','panas_x_final']
+        app_sequence=['emotions_video_instructions','fer_otree_js','panas_x_initial','emotions_video','panas_x_final']
      ),
 ]
 
@@ -17,6 +17,13 @@ SESSION_CONFIGS = [
 SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
+SESSION_CONFIG_DEFAULTS['images_per_second'] = float(environ.get('IMAGES_PER_SECOND', '5'))
+SESSION_CONFIG_DEFAULTS['sample_image_frequency'] = int(environ.get('SAMPLE_IMAGE_FREQUENCY', '5'))
+SESSION_CONFIG_DEFAULTS['experiment_duration_in_min'] = float(environ.get('EXPERIMENT_DURATION_IN_MIN', '30'))
+PARTICIPANT_FIELDS = [
+
+]
+SESSION_FIELDS = []
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
