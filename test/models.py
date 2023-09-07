@@ -17,7 +17,7 @@ Panas-x-scale
 
 
 class Constants(BaseConstants):
-    name_in_url = 'panas_x_final'
+    name_in_url = 'test'
     players_per_group = None
     num_rounds = 1
     Contactenos = 'panas_x_final/Contactenos.html'
