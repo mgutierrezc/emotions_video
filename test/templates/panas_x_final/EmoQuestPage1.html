@@ -1,0 +1,52 @@
+{% block title %}
+    Cuestionario - Página 1 (de 2)
+{% endblock %}
+
+{% block content %}
+    <script type="text/javascript" src="global/randomize.js"></script>
+
+    <p> Este cuestionario consta de una serie de palabras y frases que describen diferentes sentimientos y emociones.</p>
+
+    <p> Lea atentamente cada elemento y utilice los botones correspondientes para indicar con qué intensidad se siente de esa manera, en el <b>momento presente</b>.</p>
+
+    <p> En una escala del 1 al 5:
+        <b style="color: green">1 = muy ligeramente o nada</b>,
+        <b style="color: green">2 = un poco </b>,
+        <b style="color: green">3 = moderadamente</b>,
+        <b style="color: green">4 = bastante</b>, y
+        <b style="color: green">5 = extremadamente</b>.
+
+    <p> Asegúrese de responder a todos los elementos antes de presionar el siguiente botón. </p>
+
+    <br/>
+
+    <table class="table table-striped" id="randomizeTable">
+        <tr>
+            <td align="right"> <strong> <em> Sentimiento / Emoción: </em> </strong> </td>
+
+            <td align="center" > 
+                <strong>
+                    <em> Ahora mismo </em>
+                    <b style="color: grey; ">(1 = muy ligeramente o nada; 3 = moderadamente; 5 = extremadamente)</b>
+                </strong>
+            </td>
+        </tr>
+
+        <!-- Form fields -->
+        {% for field in form %}
+            <tr>
+                <td align="right"> <strong> {% field.label %}</strong>  </td>
+                <td style="color:grey", align="center" >{% field %} </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br/>
+
+    {% next_button %}
+
+    {% include Constants.Contactenos %}
+    {% include 'includable_camera_take_snaps.html' %}
+
+{% endblock %}
+

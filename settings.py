@@ -11,7 +11,7 @@ SESSION_CONFIGS = [
         name='emotions_video_test',
         display_name="Emotions video test",
         num_demo_participants=3,
-        app_sequence=['fer_otree_js']
+        app_sequence=['fer_otree_js','test']
      ),
 ]
 
