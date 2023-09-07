@@ -7,6 +7,12 @@ SESSION_CONFIGS = [
         num_demo_participants=1,
         app_sequence=['emotions_video_instructions','fer_otree_js','panas_x_initial','emotions_video','panas_x_final']
      ),
+     dict(
+        name='emotions_video_test',
+        display_name="Emotions video test",
+        num_demo_participants=3,
+        app_sequence=['fer_otree_js']
+     ),
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
