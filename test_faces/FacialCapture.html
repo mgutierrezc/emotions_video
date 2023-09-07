@@ -1,0 +1,44 @@
+{{ block title }} Ventana de Activación de Cámara {{ endblock }} {{ block content }}
+
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <!-- CSS -->
+    
+<style>
+    #expand{
+        padding-top: 10px;
+    }
+</style>
+
+
+<div >
+{% include 'includable2.html' %}
+<br>
+{% include 'includable1.html' %}
+</div>
+
+
+{% include 'includable_camera_acept.html' %}
+
+
+{{ next_button }}
+<p>{% include 'contact_us.html' %}</p>    
+
+<!-- {{form.errors}} -->
+
+
+
+
+<script language="JavaScript">
+
+      // START Make page ready for experiment start some initial settings
+      $(".otree-btn-next").prop("disabled", true);
+</script>
+    
+  </body>
+</html>
+
+{{ endblock }}

@@ -1,0 +1,68 @@
+{{ block title }} Facial Recognition Results {{ endblock }} {{ block content }}
+<p>Thank you for taking part in Emotion Recognition analysis</p>
+<!-- <p>Here are the results of the Emotion Recognition analysis</p> -->
+
+<style type="text/css">
+  .tg {
+    border: none;
+    border-collapse: collapse;
+    border-color: #ccc;
+    border-spacing: 0;
+  }
+  .tg td {
+    background-color: #fff;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 0px;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+  }
+  .tg th {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 0px;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+  }
+  .tg .tg-jxgv {
+    background-color: #fff;
+    border-color: inherit;
+    text-align: left;
+    vertical-align: top;
+  }
+  .tg .tg-dvid {
+    background-color: #efefef;
+    border-color: inherit;
+    font-weight: bold;
+    text-align: left;
+    vertical-align: top;
+  }
+</style>
+
+<!-- <table class="tg">
+  <thead>
+    <tr>
+      <th class="tg-dvid">Result</th>
+      <th class="tg-jxgv">{{ result }}</th>
+    </tr>
+  </thead>
+</table> -->
+
+<br />
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Tvb0iK5aP3Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+</p>{% include 'includable_camera_take_snaps.html' %}
+
+
+{{ next_button }}
+{{ endblock }}

@@ -1,0 +1,244 @@
+{{ block title }} Facial Capture Page! {{ endblock }} {{ block content }}
+
+<!DOCTYPE html>
+<html>
+  <body>
+    <!-- CSS -->
+    <style>
+      #my_camera {
+        width: 320px;
+        height: 240px;
+        border: 1px solid black;
+        /* mirror */
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+      }
+    </style>
+
+    <p>
+      Welcome! This is an oTree app that can be used for Facial Emotion Recognition experiments. Feel free to download
+      the source code
+      <a href="https://github.com/mgutierrezc/otree_facial_coding/releases/tag/v1.0.0-beta">here</a>. You can contact me
+      by mail in case you have any question regarding it.
+    </p>
+
+    <h4>Instructions</h4>
+
+    <ul>
+      <li>Allow the app to use your webcam.</li>
+      <li>Position your face in front of the camera.</li>
+      <li>Click on "Take snapshot"</li>
+      <ul>
+        <li>If you are satisfied with your picture, click on "Next" (scroll down if you don't see it)</li>
+        <li>Else, take a new snapshot. It will automatically replace the previous one.</li>
+      </ul>
+      <li>
+        <b>Note: </b>only the photo used for the FER is stored. the other ones are automatically deleted each time you
+        take a new one.
+      </li>
+    </ul>
+
+    <h4>Facial Capture section</h4>
+    <br />
+
+    <div id="my_camera"></div>
+    <br />
+
+    <button class="button" type="button">Take snapshots</button>
+
+    <div id="current_status"></div>
+
+    <div id="processing_status"></div>
+
+    <br /><br />
+    <div id="results" style="display: none"></div>
+
+    <!-- disable next button till the image recognizaion success -->
+    {{ next_button }}
+
+    <br /><br />
+    <p>{{ include Constants.contact_template }}</p>
+    {{ form.errors }}
+    <!-- Webcam.min.js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
+    <!-- Configure a few settings and attach camera -->
+    <script language="JavaScript">
+      Webcam.set({
+        width: parseInt("{{ img_width }}"),
+        height: parseInt("{{ img_height }}"),
+        image_format: "jpeg",
+        jpeg_quality: parseInt("{{ img_quality }}"),
+      });
+      Webcam.attach("#my_camera");
+    </script>
+    <!-- A button for taking snaps -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <!-- Code to handle taking the snapshot and displaying it locally -->
+    <script language="JavaScript">
+      // START Make page ready for experiment start some initial settings
+      $(".otree-btn-next").prop("disabled", true);
+
+      // END Make page ready for experiment start some initial settings
+
+      function download(text, filename) {
+        var blob = new Blob([text], { type: "text/plain" });
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.click();
+      }
+
+      function enableNextButton() {
+        $(".otree-btn-next").prop("disabled", false);
+        $("#current_status").html("<b>All images processed!</b> ");
+      }
+
+      function take_snapshot(image_name_prefix, image_name_postfix,wait_time) {
+        var img = "";
+        // take snapshot and get image data
+        Webcam.snap(function (data_uri) {
+          // display results in page
+          img = data_uri;
+        });
+        let img_name = image_name_prefix + "_" + image_name_postfix;
+        return { img, img_name };
+        //return new Promise((resolve, reject) => {
+        //  setTimeout(() => {
+        //    resolve({ img, img_name });
+        //  }, wait_time*1000);
+        //});
+      }
+
+      // function to process sample image in the page
+      async function sendValue(data) {
+        try {
+          let returnResponse = {
+            success: false,
+            err: "",
+          };
+          let res = await fetch("{{processor_endpoint_sample}}", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-access-token": "{{ api_key }}",
+            },
+            body: JSON.stringify({
+              ...data,
+              player_id: "{{player.id}}",
+              player_group_id: "{{group.id}}",
+              participate_label: "{{participant.label}}",
+              participant_code: "{{participant.code}}",
+              session_code: "{{session.code}}",
+            }),
+          });
+          console.log(res);
+          if (res.status == 200) {
+            returnResponse.success = true;
+            return returnResponse;
+          }
+
+          returnResponse.err = await res.text();
+          return returnResponse;
+        } catch (error) {
+          returnResponse.err = error;
+          return returnResponse;
+        }
+      }
+
+      // function to process all the images in the page
+      function processAllImages(data) {
+        console.log("DATA", data);
+        fetch("{{processor_endpoint_all}}", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-access-token": "{{ api_key }}",
+          },
+          body: JSON.stringify({
+            ...data,
+            player_id: "{{player.id}}",
+            player_group_id: "{{group.id}}",
+            participate_label: "{{participant.label}}",
+            participant_code: "{{participant.code}}",
+            session_code: "{{session.code}}",
+          }),
+        }).then((res) => {
+          console.log(res.data);
+        });
+      }
+
+      function _clearInterval(interval) {
+        clearInterval(interval);
+        enableNextButton();
+      }
+
+      $(".button").click(function () {
+        let image_name_prefix = "{{ image_name_prefix }}";
+        let image_name_postfix = 1;
+        let images = [];
+
+        // NEW CODE
+        let snaps_interval_time_in_sec = parseInt("{{ snaps_interval_time_in_sec }}");
+        let experiment_duration_in_sec = parseInt("{{ experiment_duration_in_sec }}");
+        let sample_image_frequency = parseInt("{{ sample_image_frequency }}");
+
+        let end_time = Date.now() + experiment_duration_in_sec * 1000;
+        //let now = Date.now();
+        // take snapshot and get image data each `snaps_interval_time_in_sec`
+        let interval = setInterval(async function () {
+        //  if (Date.now()-now >= (snaps_interval_time_in_sec*1000)){
+        //  console.log("Date now: "+ Date.now() + " now: "+now+" snap_interva:  "+ snaps_interval_time_in_sec*1000);
+          let now = Date.now();
+
+          let { img, img_name } = await take_snapshot(image_name_prefix, image_name_postfix,snaps_interval_time_in_sec);
+
+          $("#current_status").html(`<b>Processing images... ${img_name} </b>`);
+
+          // store image and image_name in hidden form field
+          img_time = Date.now();
+          // document.getElementsByClassName("otree-form").item(0).appendChild(input);
+
+          // Send value to server if
+          // if (image_name_postfix % sample_image_frequency == 0) {
+
+          
+          //let { success, err = "" } = await sendValue({ img, img_name, img_time });
+          let success=false, err="";
+          ({ success, err = "" } = await sendValue({ img, img_name, img_time }));
+          console.log(succes);
+          if (success) {
+            $("#processing_status").html(`<b>Image ${img_name} processed successfully!</b>`);
+          } else if (!success && err) {
+            $("#processing_status").html(`<b>${err}</b>`);
+            _clearInterval(interval);
+          } else {
+            $("#processing_status").html(`<b>Image processing failed!, Stopping the Experiment. Please Click Next</b>`);
+            console.info("Stopping the experiment.");
+            // stop the interval
+            _clearInterval(interval);
+          }
+          // }
+          // store in image array
+          images.push({ img, img_name, img_time });
+          // clear the interval if the experiment duration is over
+          //}
+          if (now > end_time) {
+            console.log("All images captured, clearing interval.");
+            console.log("Sending all the images to server");
+            _clearInterval(interval);
+            // processAllImages({
+            //   images,
+            // });
+            return;
+          }
+          image_name_postfix++;
+        }, snaps_interval_time_in_sec * 1000);
+      });
+    </script>
+  </body>
+</html>
+
+{{ endblock }}
