@@ -129,15 +129,15 @@ class FacialRecognition(Page):
         return variables_dictionary(self)
 
 class Page1(Page):
-    timeout_seconds = 10
+    timeout_seconds = 20
     def vars_for_template(self):
         return variables_dictionary(self)
 class Page2(Page):
-    timeout_seconds = 10
+    timeout_seconds = 20
     def vars_for_template(self):
         return variables_dictionary(self)
 class Page3(Page):
-    timeout_seconds = 10
+    timeout_seconds = 20
     def vars_for_template(self):
         return variables_dictionary(self)
 
