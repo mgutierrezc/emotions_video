@@ -1,0 +1,14 @@
+{% block title %}
+    Gracias
+{% endblock %}
+
+{% block content %}
+    <p>Ya terminó el cuestionario. Ahora procederá con la siguiente parte.</p>
+    {% next_button %}
+
+
+    {% include Constants.Contactenos %}
+    {% include 'includable_camera_take_snaps.html' %}
+{% endblock %}
+
+

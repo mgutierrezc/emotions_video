@@ -1,0 +1,55 @@
+{{ block title }} Instrucciones{{ endblock }} {{ block content }}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <!-- CSS -->
+    <style>
+      #my_camera {
+        width: 320px;
+        height: 240px;
+        border: 1px solid black;
+        /* mirror */
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+      }
+    </style>
+
+    <p>
+     
+    </p>
+    
+    <br />
+    <br>
+    Las siguientes ventanas te pedirán que simules una emoción. <br>
+    Tendrás aproximadamente 20 segundos por página. <br>
+    Las opciones serán: happy, sad, angry, disgust, fear, surprise, neutral
+    
+    <div id="current_status"></div>
+
+    <div id="processing_status"></div>
+
+    <br /><br />
+    <div id="results" style="display: none"></div>
+
+    <!-- disable next button till the image recognizaion success -->
+    {{ next_button }}
+  
+    <br /><br />
+ <!--    <p>{{ include Constants.contact_template }}</p>-->
+    <p>{% include 'contact_us.html' %}</p>
+ 
+    <!-- Webcam.min.js -->
+    
+    <!-- Configure a few settings and attach camera -->
+
+</body>
+</html>
+
+{{ endblock }}

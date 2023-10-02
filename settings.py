@@ -13,6 +13,19 @@ SESSION_CONFIGS = [
         num_demo_participants=3,
         app_sequence=['test_faces']
      ),
+     dict(
+        name='emotions_video_7_emotions',
+        display_name="Emotion video 7 emotions",
+        num_demo_participants=3,
+        app_sequence=['emotions_7_videos_instructions','fer_otree_js','panas_x_initial','emotions_video_7_videos','panas_x_mid', 'simulated_emotion']
+     ),
+     dict(
+        name='emotions_video_7emotions',
+        display_name="Emotion video 7emotions",
+        num_demo_participants=3,
+        app_sequence=['simulated_emotion']
+     ),
+
 ]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
