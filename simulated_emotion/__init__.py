@@ -30,11 +30,17 @@ def variables_dictionary(self):
 }
 
 class Constants(BaseConstants):
+    timeout1 = 'style_timeout1.html'
+    timeout_style = 'timeout_not_auto_submit.html'
     name_in_url = "simulated_emotion"
     image_name_prefix = "image"
     players_per_group = None
-    num_rounds = 1
+    
     contact_template = "fer_otree_js/Contact.html"
+
+    tasks = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+    num_rounds = len(tasks)
+
 
     img_width = 240
     img_height = 180
@@ -52,6 +58,17 @@ class Constants(BaseConstants):
 
     total_images = int(experiment_duration_in_sec //
                        snaps_interval_time_in_sec)
+
+def creating_session(subsession):
+  import random
+  if subsession.round_number == 1:
+    for p in subsession.get_players():
+      round_numbers = list(range(1, Constants.num_rounds+1))
+      random.shuffle(round_numbers)
+      print(round_numbers)
+      p.participant.vars['task_rounds'] = dict(zip(Constants.tasks, round_numbers))
+      print(p.participant.vars['task_rounds'])
+
 
 vars = '''
 "result": self.participant.vars.get("result", None),
@@ -128,35 +145,92 @@ class FacialRecognition(Page):
     def vars_for_template(self):
         return variables_dictionary(self)
 
-class Page1(Page):
+class Page1_a(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['A']
+    def vars_for_template(self):
+        return variables_dictionary(self)
+class Page1_b(Page):
+    timeout_seconds = 15
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['A']
+    def vars_for_template(self):
+        return variables_dictionary(self)
+    
+class Page2_a(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['B']
+    def vars_for_template(self):
+        return variables_dictionary(self)
+class Page2_b(Page):
+    timeout_seconds = 15
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['B']
+    def vars_for_template(self):
+        return variables_dictionary(self)
+    
+class Page3_a(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['C']
+    def vars_for_template(self):
+        return variables_dictionary(self)
+class Page3_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
         return variables_dictionary(self)
-class Page2(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['C']
+
+class Page4_a(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['D']
+    def vars_for_template(self):
+        return variables_dictionary(self)
+class Page4_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
         return variables_dictionary(self)
-class Page3(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['D']
+    
+class Page5_a(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['E']
+    def vars_for_template(self):
+        return variables_dictionary(self)
+class Page5_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
         return variables_dictionary(self)
-class Page4(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['E']
+    
+class Page6_a(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['F']
+    def vars_for_template(self):
+        return variables_dictionary(self)
+class Page6_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
         return variables_dictionary(self)
-class Page5(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['F']
+    
+class Page7_a(Page):
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['G']
+    def vars_for_template(self):
+        return variables_dictionary(self)
+class Page7_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
         return variables_dictionary(self)
-class Page6(Page):
-    timeout_seconds = 20
-    def vars_for_template(self):
-        return variables_dictionary(self)
-class Page7(Page):
-    timeout_seconds = 20
-    def vars_for_template(self):
-        return variables_dictionary(self)
+    def is_displayed(player):
+        return player.round_number == player.participant.vars['task_rounds']['G']
 
 
+#page_sequence_initial = [Introduction, Page1_a,Page1_b, Page2_a, Page2_b, Page3, Page4, Page5, Page6, Page7]
+#random.shuffle(page_sequence_initial)
 
-page_sequence = [Introduction, Page1, Page2, Page3, Page4, Page5, Page6, Page7]
+page_sequence = [Page1_a, Page2_a, Page3_a, Page4_a, Page5_a, Page6_a, Page7_a, Page1_b, Page2_b, Page3_b, Page4_b, Page5_b, Page6_b, Page7_b]

@@ -1,0 +1,30 @@
+
+<div id="timer">En <b><span id="countdown">0:10</span></b> segundos, realiza la siguiente expresión: </div>
+<script>
+    // Función para actualizar el temporizador
+    function updateTimer() {
+        const countdownElement = document.getElementById("countdown");
+        let time = countdownElement.innerText.split(':');
+        let minutes = parseInt(time[0]);
+        let seconds = parseInt(time[1]);
+
+        if (minutes === 0 && seconds === 0) {
+            // El temporizador ha llegado a cero, puedes agregar acciones aquí
+        } else {
+            if (seconds === 0) {
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+
+            countdownElement.innerText = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+            setTimeout(updateTimer, 1000); // Actualiza cada segundo (1000 ms)
+        }
+    }
+
+    // Iniciar el temporizador cuando la página se carga
+    window.onload = function () {
+        setTimeout(updateTimer, 1000); // Inicializa el temporizador
+    };
+</script>

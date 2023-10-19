@@ -20,11 +20,12 @@ SESSION_CONFIGS = [
         app_sequence=['emotions_7_videos_instructions','fer_otree_js','panas_x_initial','emotions_video_7_videos','panas_x_mid', 'simulated_emotion']
      ),
      dict(
-        name='emotions_video_7emotions',
-        display_name="Emotion video 7emotions",
+        name='emotions__video_7_emotions',
+        display_name="Emotion_ video 7 emotions",
         num_demo_participants=3,
         app_sequence=['simulated_emotion']
      ),
+
 
 ]
 
