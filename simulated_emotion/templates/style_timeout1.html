@@ -1,15 +1,25 @@
 
-<div id="timer">En <b><span id="countdown">0:10</span></b> segundos, realiza la siguiente expresión: </div>
+<div id="timer">
+
+</div>
+
 <script>
+    text1 = "Cuando el contador llegue a cero, realiza la expresión indicada. <b><span id='countdown1'>  00:10</span></b>"
+    text2 = "Ahora, realiza la emoción indicada hasta que acabe el tiempo"
+    text2 = "Puedes continuar  a la siguiente página"
     // Función para actualizar el temporizador
-    function updateTimer() {
-        const countdownElement = document.getElementById("countdown");
+    function updateTimer1() {
+        const countdownElement = document.getElementById("countdown1");
+        
         let time = countdownElement.innerText.split(':');
         let minutes = parseInt(time[0]);
         let seconds = parseInt(time[1]);
 
         if (minutes === 0 && seconds === 0) {
-            // El temporizador ha llegado a cero, puedes agregar acciones aquí
+            //contador llega a cero
+            timer_element = document.getElementById("timer")
+            timer_element.textContent = ""
+            segundo_elemento()
         } else {
             if (seconds === 0) {
                 minutes--;
@@ -19,12 +29,112 @@
             }
 
             countdownElement.innerText = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
-            setTimeout(updateTimer, 1000); // Actualiza cada segundo (1000 ms)
+            setTimeout(updateTimer1, 1000); // Actualiza cada segundo (1000 ms)
         }
     }
+    function updateTimer2() {
+        const countdownElement = document.getElementById("countdown1");
+        let time = countdownElement.innerText.split(':');
+        let minutes = parseInt(time[0]);
+        let seconds = parseInt(time[1]);
 
+        if (minutes === 0 && seconds === 0) {
+            //contador llega a cero
+            timer_element = document.getElementById("timer")
+            timer_element.textContent = ""
+            tercer_elemento()
+        } else {
+            if (seconds === 0) {
+                minutes--;
+                seconds = 59;
+            } else {
+                seconds--;
+            }
+
+            countdownElement.innerText = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+            setTimeout(updateTimer2, 1000); // Actualiza cada segundo (1000 ms)
+        }
+    }
+    function primer_elemento()
+    {
+        timer_element = document.getElementById("timer")
+        
+        var spanElement1 = document.createElement("span");
+        spanElement1.textContent = "En ";
+
+        var spanElement2 = document.createElement("span");
+        spanElement2.setAttribute("id","countdown1")
+        spanElement2.innerHTML = '00:10'
+
+        var spanElement3 = document.createElement("span");
+        spanElement3.textContent = " segundos, pon cara de  ";
+
+        var spanElement4 = document.createElement("b");
+        spanElement4.textContent = "{{ page_title }}"; 
+
+        var strongElement1 = document.createElement("strong");
+
+        strongElement1.appendChild(spanElement2)
+        timer_element.appendChild(spanElement1);
+        timer_element.appendChild(strongElement1);
+        timer_element.appendChild(spanElement3);
+        timer_element.appendChild(spanElement4);
+        setTimeout(updateTimer1, 1000); // Inicializa el temporizador
+    }
+
+
+    primer_elemento()
+    function segundo_elemento()
+    {
+        timer_element = document.getElementById("timer")
+        
+        var spanElement1 = document.createElement("span");
+        spanElement1.textContent = "Manten tu cara de       ";
+
+        var spanElement3 = document.createElement("b");
+        spanElement3.textContent = " {{page_title}}       ";
+
+        var spanElement4 = document.createElement("span");
+        spanElement4.textContent = " por       ";
+
+        
+
+        var spanElement2 = document.createElement("span");
+        spanElement2.setAttribute("id","countdown1")
+        spanElement2.innerHTML = '00:10'
+
+        var spanElement5 = document.createElement("span");
+        spanElement5.textContent = " segundos.       ";
+
+        var strongElement1 = document.createElement("strong");
+        strongElement1.appendChild(spanElement2)
+        
+
+
+        timer_element.appendChild(spanElement1);
+        timer_element.appendChild(spanElement3);
+        timer_element.appendChild(spanElement4);
+        timer_element.appendChild(strongElement1);
+        timer_element.appendChild(spanElement5);
+        setTimeout(updateTimer2, 1000); // Inicializa el temporizador
+    }
+
+    function tercer_elemento()
+    {
+        timer_element = document.getElementById("timer")
+        
+        var spanElement1 = document.createElement("span");
+        spanElement1.textContent = "Ya puedes continuar a la siguiente página.";
+
+        
+
+        timer_element.appendChild(spanElement1);
+
+        setTimeout(updateTimer2, 1000); // Inicializa el temporizador
+    }
+    
     // Iniciar el temporizador cuando la página se carga
     window.onload = function () {
-        setTimeout(updateTimer, 1000); // Inicializa el temporizador
+        
     };
 </script>

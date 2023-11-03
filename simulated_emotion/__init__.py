@@ -149,7 +149,13 @@ class Page1_a(Page):
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['A']
     def vars_for_template(self):
-        return variables_dictionary(self)
+        page_title = "Felicidad"
+    
+        dictionary1 = {'page_title': page_title}
+        dictionary2 = variables_dictionary(self)
+        combined_dict = {**dictionary1, **dictionary2}
+        
+        return combined_dict
 class Page1_b(Page):
     timeout_seconds = 15
     def is_displayed(player):
@@ -161,23 +167,46 @@ class Page2_a(Page):
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['B']
     def vars_for_template(self):
-        return variables_dictionary(self)
+        page_title = "Tristeza"
+    
+        dictionary1 = {'page_title': page_title}
+        dictionary2 = variables_dictionary(self)
+        combined_dict = {**dictionary1, **dictionary2}
+        
+        return combined_dict
 class Page2_b(Page):
     timeout_seconds = 15
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['B']
     def vars_for_template(self):
-        return variables_dictionary(self)
+        page_title = "Anger"
+    
+        dictionary1 = {'page_title': page_title}
+        dictionary2 = variables_dictionary(self)
+        combined_dict = {**dictionary1, **dictionary2}
+        
+        return combined_dict
     
 class Page3_a(Page):
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['C']
     def vars_for_template(self):
-        return variables_dictionary(self)
+        page_title = "Enojo"
+    
+        dictionary1 = {'page_title': page_title}
+        dictionary2 = variables_dictionary(self)
+        combined_dict = {**dictionary1, **dictionary2}
+        return combined_dict
 class Page3_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
-        return variables_dictionary(self)
+        page_title = "Anger"
+    
+        dictionary1 = {'page_title': page_title}
+        dictionary2 = variables_dictionary(self)
+        combined_dict = {**dictionary1, **dictionary2}
+        
+        return combined_dict
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['C']
 
@@ -185,7 +214,13 @@ class Page4_a(Page):
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['D']
     def vars_for_template(self):
-        return variables_dictionary(self)
+        page_title = "Asco"
+    
+        dictionary1 = {'page_title': page_title}
+        dictionary2 = variables_dictionary(self)
+        combined_dict = {**dictionary1, **dictionary2}
+        
+        return combined_dict
 class Page4_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
@@ -197,7 +232,13 @@ class Page5_a(Page):
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['E']
     def vars_for_template(self):
-        return variables_dictionary(self)
+        page_title = "Miedo"
+    
+        dictionary1 = {'page_title': page_title}
+        dictionary2 = variables_dictionary(self)
+        combined_dict = {**dictionary1, **dictionary2}
+        
+        return combined_dict
 class Page5_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
@@ -209,7 +250,13 @@ class Page6_a(Page):
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['F']
     def vars_for_template(self):
-        return variables_dictionary(self)
+        page_title = "Sorpresa"
+    
+        dictionary1 = {'page_title': page_title}
+        dictionary2 = variables_dictionary(self)
+        combined_dict = {**dictionary1, **dictionary2}
+        
+        return combined_dict
 class Page6_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
@@ -221,7 +268,13 @@ class Page7_a(Page):
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['G']
     def vars_for_template(self):
-        return variables_dictionary(self)
+        page_title = "Neutralidad"
+    
+        dictionary1 = {'page_title': page_title}
+        dictionary2 = variables_dictionary(self)
+        combined_dict = {**dictionary1, **dictionary2}
+        
+        return combined_dict
 class Page7_b(Page):
     timeout_seconds = 20
     def vars_for_template(self):
@@ -233,4 +286,4 @@ class Page7_b(Page):
 #page_sequence_initial = [Introduction, Page1_a,Page1_b, Page2_a, Page2_b, Page3, Page4, Page5, Page6, Page7]
 #random.shuffle(page_sequence_initial)
 
-page_sequence = [Page1_a, Page2_a, Page3_a, Page4_a, Page5_a, Page6_a, Page7_a, Page1_b, Page2_b, Page3_b, Page4_b, Page5_b, Page6_b, Page7_b]
+page_sequence = [Page1_a, Page2_a, Page3_a, Page4_a, Page5_a, Page6_a, Page7_a]
