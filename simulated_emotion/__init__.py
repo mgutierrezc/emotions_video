@@ -99,6 +99,9 @@ class Player(BasePlayer):
 
 # PAGES
 class Introduction(Page):
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == 1
     pass
 
 
@@ -281,9 +284,17 @@ class Page7_b(Page):
         return variables_dictionary(self)
     def is_displayed(player):
         return player.round_number == player.participant.vars['task_rounds']['G']
+    
+from . import Constants as C
+class EndPage(Page):
+    def vars_for_template(self):
+        return variables_dictionary(self)
+    @staticmethod
+    def is_displayed(player):
+        return player.round_number == C.num_rounds
 
 
 #page_sequence_initial = [Introduction, Page1_a,Page1_b, Page2_a, Page2_b, Page3, Page4, Page5, Page6, Page7]
 #random.shuffle(page_sequence_initial)
 
-page_sequence = [Page1_a, Page2_a, Page3_a, Page4_a, Page5_a, Page6_a, Page7_a]
+page_sequence = [Introduction, Page1_a, Page2_a, Page3_a, Page4_a, Page5_a, Page6_a, Page7_a, EndPage]

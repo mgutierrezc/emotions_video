@@ -4,7 +4,7 @@
 </div>
 
 <script>
-    text1 = "Cuando el contador llegue a cero, realiza la expresión indicada. <b><span id='countdown1'>  00:10</span></b>"
+    text1 = "Cuando el contador llegue a cero, realiza la expresión indicada. <b><span id='countdown1'>  00:2</span></b>"
     text2 = "Ahora, realiza la emoción indicada hasta que acabe el tiempo"
     text2 = "Puedes continuar  a la siguiente página"
     // Función para actualizar el temporizador
@@ -64,7 +64,7 @@
 
         var spanElement2 = document.createElement("span");
         spanElement2.setAttribute("id","countdown1")
-        spanElement2.innerHTML = '00:10'
+        spanElement2.innerHTML = '00:2'
 
         var spanElement3 = document.createElement("span");
         spanElement3.textContent = " segundos, pon cara de  ";
@@ -101,7 +101,7 @@
 
         var spanElement2 = document.createElement("span");
         spanElement2.setAttribute("id","countdown1")
-        spanElement2.innerHTML = '00:10'
+        spanElement2.innerHTML = '00:2'
 
         var spanElement5 = document.createElement("span");
         spanElement5.textContent = " segundos.       ";
@@ -127,14 +127,29 @@
         spanElement1.textContent = "Ya puedes continuar a la siguiente página.";
 
         
+        // Buscar el botón por su clase
+        var botonOtreeNext = document.querySelector(".otree-btn-next");
 
+        // Ocultar el botón
+        if (botonOtreeNext) {
+        botonOtreeNext.style.display = "block";
+        }
         timer_element.appendChild(spanElement1);
 
         setTimeout(updateTimer2, 1000); // Inicializa el temporizador
     }
     
+
+
     // Iniciar el temporizador cuando la página se carga
+
     window.onload = function () {
-        
+        // Buscar el botón por su clase
+        var botonOtreeNext = document.querySelector(".otree-btn-next");
+
+        // Ocultar el botón
+        if (botonOtreeNext) {
+        botonOtreeNext.style.display = "none";
+        }
     };
 </script>
